@@ -1,3 +1,4 @@
+// https://www.geeksforgeeks.org/majority-element/
 import java.util.*;
 
 public class Majority {
