@@ -10,6 +10,7 @@ public class Matmul {
         c1 = scan.nextInt();
         r2 = scan.nextInt();
         c2 = scan.nextInt();
+        if (c1 != r2) return;
         int[][] arr1, arr2, arr3;
         arr1 = new int[r1][c1];
         arr2 = new int[r2][c2];

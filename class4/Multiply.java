@@ -46,11 +46,15 @@ public class Multiply {
     }
 
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        int[] n2 = {1,9,9,9,9};
-        int[] n1 = {0,0,0};
+        // Scanner scan = new Scanner(System.in);
+        String[] num1 = args[0].split("");
+        String[] num2 = args[1].split("");
+        int[] n2 = Arrays.asList(num1).stream().mapToInt(Integer::parseInt).toArray();
+        int[] n1 = Arrays.asList(num2).stream().mapToInt(Integer::parseInt).toArray();
         int[] res = new int[n1.length + n2.length];
-
+        // System.out.println(args[0]);
+        // for(int test : n1) System.out.print(test);	
+		
         int i = n1.length - 1;
 
         int[] tempSum = new int[n1.length + n2.length];

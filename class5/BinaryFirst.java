@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class BinarySearch {
+public class BinaryFirst {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         System.out.print("Enter the size of array");
@@ -15,20 +15,26 @@ public class BinarySearch {
         System.out.print("Enter the element to find ");
         int ele = scan.nextInt();
         boolean found = false;
-        int begin = 0, end = arr.length;
+        int begin = 0, end = arr.length - 1;
         Arrays.sort(arr);
+        int pos = -1;
         while (begin <= end) {
             int mid = (begin + end) / 2;
             if (arr[mid] == ele) {
-                System.out.println("Element found at " + mid);
+                // System.out.println("Element found at " + mid);
                 found = true;
-                break;
+                pos = mid;
+                end = mid - 1;
+                // break;
             } else if (arr[mid] > ele) {
                 end = mid - 1;
             } else {
                 begin = mid + 1;
             }
         }
-        if(!found) System.out.println("Element not found");
+        if (pos == -1) System.out.println("Element not found");
+        else System.out.println("Element found at " + pos);
+
+        // if(!found) System.out.println("Element not found");
     }
 }

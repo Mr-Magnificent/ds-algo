@@ -2,8 +2,8 @@ import java.util.*;
 
 public class ArraySub {
     public static void main(String[] args) {
-        int[] n1 = {4,3,0,1};
-        int[] n2 = {0};
+        int[] n1 = {1,0,0,0,1};
+        int[] n2 = {1,3,5,6,0};
         int[] res = new int[n1.length >= n2.length? n1.length: n2.length];
 
         int greater = greater(n1, n2);
@@ -61,8 +61,13 @@ public class ArraySub {
         int n2Ind = n2.length - 1;
         int greater = 0;
         while (n1Ind >= 0 && n2Ind >= 0) {
-            if(n1[n1Ind] >= n2[n2Ind]) greater = 0;
-            else greater = 1;
+            if(n1[n1Ind] > n2[n2Ind]) {
+                greater = 0;
+                break;
+            } else if (n1[n1Ind] < n2[n2Ind]) {
+                greater = 1;
+                break;
+            }
             n1Ind--;
             n2Ind--;
         }
