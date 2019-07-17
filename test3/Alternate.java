@@ -1,22 +1,35 @@
 import java.io.*;
 import java.util.*;
 
-public class Solution {
+public class Alternate {
 
-	static void recursion(String inp, int count) {
-		if (inp.length() <= 2) {
-			System.out.println(count);
-			return;
+	static boolean check(String inp) {
+		if (inp.length() < 3) {
+			return false;
+		} else if (inp.charAt(0) != inp.charAt(2)) {
+			return false;
+		} else if (!Character.isAlphabetic(inp.charAt(0))) {
+			return false;
+		} else if (!Character.isAlphabetic(inp.charAt(1))) {
+			return false;
 		}
+		return true;
+	}
 
-		char check0 = inp.charAt(0);
-		char check1 = inp.charAt(1);
-		char check2 = inp.charAt(2);
-		if (Character.isAlphabetic(check0) && Character.isAlphabetic(check1) && Character.isAlphabetic(check2)) {
-			recursion(inp.substring(1), count + 1);
-		} else {
-			recursion(inp.substring(1), count);
+	static int recursion(String inp) {
+		// System.out.println(inp);
+		if (inp.length() == 0) {
+			return 0;
 		}
+		if(!check(inp)) {
+			return recursion(inp.substring(1));
+		}
+		int val1 = recursion(inp.substring(1));
+		int val2 = recursion(inp.substring(3));
+		val1 += 1;
+		val2 += 2;
+		if (val1 > val2) return val1;
+		else return val2;
 	}
 
 	public static void main(String[] args) {
@@ -26,7 +39,7 @@ public class Solution {
 		 */
 		Scanner scan = new Scanner(System.in);
 		String inp = scan.next();
-		recursion(inp, 0);
+		System.out.println((recursion(inp)));
 
 	}
 }

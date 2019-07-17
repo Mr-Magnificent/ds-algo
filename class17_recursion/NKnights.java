@@ -25,29 +25,35 @@ public class NKnights {
 	}
 
 	static void nKnights(boolean[][] board, int knights, int i, int j) {
-		if (knights == board.length) {
-			for(boolean[] row: board) {
-				for(boolean ele: row) {
-					System.out.print(ele + " ");
+		if (j >= board.length || i == board.length) {
+			return;
+		} else if (knights == board.length) {
+			for (boolean[] row : board) {
+				for (boolean ele : row) {
+					if (ele)
+					System.out.print(1 + " ");
+					else
+					System.out.print(0 + " ");
 				}
 				System.out.println();
 			}
+			System.out.println();
+			count++;
+			return;
 		} else if (j == board[0].length - 1) {
 			if (isSafe(board, i, j)) {
 				board[i][j] = true;
 				nKnights(board, knights + 1, i + 1, 0);
 				board[i][j] = false;
-			} else {
-				nKnights(board, knights, i + 1, 0);
 			}
+			nKnights(board, knights, i + 1, 0);
 		} else {
 			if (isSafe(board, i, j)) {
 				board[i][j] = true;
 				nKnights(board, knights + 1, i, j + 1);
 				board[i][j] = false;
-			} else {
-				nKnights(board, knights, i, j + 1);
 			}
+			nKnights(board, knights, i, j + 1);
 		}
 	}
 
