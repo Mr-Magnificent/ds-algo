@@ -98,6 +98,77 @@ int printSmallestPath(int ini, int final, string asf, bool visited[])
 	return weight;
 }
 
+int printLargestPath(int ini, int final, string asf, bool visited[])
+{
+	if (ini == final)
+	{
+		return 0;
+	}
+
+	int weight = INT_MIN;
+	for (int i = 0; i < graph[ini].size(); i++)
+	{
+		if (visited[graph[ini][i].nbr])
+			continue;
+
+		visited[ini] = true;
+		int temp = printSmallestPath(graph[ini][i].nbr, final, asf + to_string(ini) + " ", visited);
+		if (temp != INT_MIN && (temp + graph[ini][i].wt) > weight)
+		{
+			weight = temp + graph[ini][i].wt;
+		}
+		visited[ini] = false;
+	}
+	return weight;
+}
+
+int minHops(int ini, int final, bool visited[])
+{
+	if (ini == final)
+	{
+		return 0;
+	}
+
+	int minHop = INT_MAX;
+	for (int i = 0; i < graph[ini].size(); i++)
+	{
+		visited[ini] = true;
+		if (visited[graph[ini][i].nbr])
+			continue;
+		int hops = minHops(graph[ini][i].nbr, final, visited);
+		if (hops != INT_MAX && (hops + 1) < minHop)
+		{
+			minHop = hops + 1;
+		}
+		visited[ini] = false;
+	}
+	return minHop;
+}
+
+int printCeilPath(int ini, int final, string asf, int given, bool visited[])
+{
+	if (ini == final)
+	{
+		return 0;
+	}
+
+	int weight = INT_MAX;
+	for (int i = 0; i < graph[ini].size(); i++)
+	{
+		if (visited[graph[ini][i].nbr])
+			continue;
+
+		visited[ini] = true;
+		int temp = printSmallestPath(graph[ini][i].nbr, final, asf + to_string(ini) + " ", visited);
+		if (temp != INT_MAX && (temp + graph[ini][i].wt) < weight && (temp + graph[ini][i].wt) > given)
+		{
+			weight = temp + graph[ini][i].wt;
+		}
+		visited[ini] = false;
+	}
+	return weight;
+}
+
 int main(int argc, char **argv)
 {
 	graph.push_back(vector<Edge>()); // 0
@@ -109,7 +180,7 @@ int main(int argc, char **argv)
 	graph.push_back(vector<Edge>()); // 6
 
 	addEdge(0, 1, 10);
-	addEdge(1, 2, 15);
+	addEdge(1, 2, 10);
 	addEdge(2, 3, 10);
 	addEdge(0, 3, 40);
 	addEdge(3, 4, 2);
@@ -122,4 +193,7 @@ int main(int argc, char **argv)
 	display();
 	// cout << (hasPath(0, 6, visited)) << endl;
 	cout << printSmallestPath(0, 6, "", visited) << endl;
+	cout << printLargestPath(0, 6, "", visited) << endl;
+	// cout << minHops(0, 6, visited) << endl;
+	cout << printCeilPath(0, 6, "", 35, visited) << endl;
 }
