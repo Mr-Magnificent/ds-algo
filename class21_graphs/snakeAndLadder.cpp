@@ -8,24 +8,37 @@ class Position
 public:
 	int position;
 	int cost;
+	int buffer;
 	string sol;
 
-	Position(int position, int cost, string sol = "") : position(position), cost(cost), sol(sol)
+	Position(int position, int cost, string sol, int buffer) : position(position), cost(cost), sol(sol), buffer(buffer)
 	{
 	}
 
-	Position(int position) : position(position), cost(0), sol("")
+	Position(int position) : position(position), cost(0), sol(""), buffer(0)
+	{
+	}
+
+	void setPosition(int position, int cost, string sol, int buffer)
+	{
+		this->position = position;
+		this->cost = cost;
+		this->sol = sol;
+		this->buffer = buffer;
+	}
+
+	Position()
 	{
 	}
 
 	bool operator<(const Position &other) const
 	{
-		return this->position < other.position;
+		return this->cost < other.cost;
 	}
 
 	bool operator>(const Position &other) const
 	{
-		return this->position > other.position;
+		return this->cost > other.cost;
 	}
 
 	string operator<<(const Position &other) const
@@ -63,7 +76,15 @@ void print_minimum_path(int dest)
 		{
 			int nbr = graph[remNode.position][i];
 
-			Position p(nbr, remNode.cost + 1, remNode.sol + " " + to_string(remNode.position));
+			Position p;
+			if (remNode.buffer == 6 || nbr != remNode.position + 1)
+			{
+				p.setPosition(nbr, remNode.cost + 1, remNode.sol + " " + to_string(remNode.position), 0);
+			}
+			else
+			{
+				p.setPosition(nbr, remNode.cost, remNode.sol + " " + to_string(remNode.position), remNode.buffer + 1);
+			}
 			q.push(p);
 		}
 	}
