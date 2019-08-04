@@ -12,7 +12,7 @@ public class K6thDivisibleNumbers {
 			for (int j = 0; j < strg[0].length; j++) {
 				strg[i + 1][j] += strg[i][j];
 
-				int factor = (s.charAt(i) - '0') * 10 + (s.charAt(i + 1) - '0');
+				int factor = j * 10 + (s.charAt(i + 1) - '0');
 				strg[i + 1][factor % divisor] += strg[i][j];
 			}
 		}

@@ -1,3 +1,7 @@
 import java.util.*;
 
-public class CountPa
+public class CountPalindromicSubstring {
+    public static void main(String[] args) {
+        
+    }
+}
