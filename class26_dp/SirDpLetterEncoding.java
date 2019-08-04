@@ -13,7 +13,12 @@ public class SirDpLetterEncoding {
 			sol[1] = sol[0];
 		}
 
-		if num = arr[0] * 10 + arr[1];
+		int num = arr[0] * 10 + arr[1];
+		if (num <= 26) {
+			sol[1]++;
+		}
+
+		for (int i = 0; i < )
 	}
 	public static void main(String[] args) {
 		int[] arr = { 1, 2, 1, 3, 2, 6, 1, 2, 0, 1, 4 };
