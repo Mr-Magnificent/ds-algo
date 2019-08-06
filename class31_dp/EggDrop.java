@@ -9,17 +9,24 @@ public class EggDrop {
                 if (i == 1) {
                     strg[i][j] = j;
                 } else {
-                    int max = Integer.MIN_VALUE;
+                    int min = Integer.MAX_VALUE;
                     for (int k = 0; k < j; k++) {
                         int lower = strg[i][j - k - 1];
                         int upper = strg[i - 1][k];
-                        int min = Math.min(lower, upper);
-                        
-                        max = Math.max(min, max);
+                        int max = Math.max(lower, upper);
+
+                        min = Math.min(min, max);
                     }
-                    strg[i][j] = max + 1;
+                    strg[i][j] = min + 1;
                 }
             }
+        }
+
+        for (int i = 0; i < strg.length; i++) {
+            for (int j = 0; j < strg[0].length; j++) {
+                System.out.print(strg[i][j] + " ");
+            }
+            System.out.println();
         }
         
         return strg[strg.length - 1][strg[0].length - 1];
