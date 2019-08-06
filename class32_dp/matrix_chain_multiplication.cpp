@@ -49,7 +49,6 @@ int MatrixChainMultiplication(vector<int> &matrix_dim)
         }
         cout << endl;
     }
-    // cout << strg[0][strg.size() - 1];
     return strg[0][strg.size() - 1];
 }
 
