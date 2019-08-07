@@ -47,7 +47,7 @@ int CoinGame(vector<int> &coins, vector<vector<int>> &strg, int i, int j)
 
 int main(int argc, char **argv)
 {
-    vector<int> coins({20, 30, 2, 2, 2, 10, 12, 23, 22, 23, 34, 43, 12, 34, 234, 123, 12, 1, 23, 3, 23, 23});
+    vector<int> coins({20, 30, 2, 2, 2, 10});
     vector<vector<int>> strg(coins.size(), vector<int>(coins.size(), 0));
     auto start = chrono::high_resolution_clock::now();
     cout << CoinGame(coins, strg, 0, coins.size() - 1) << endl;
