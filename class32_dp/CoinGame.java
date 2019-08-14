@@ -19,15 +19,13 @@ public class CoinGame {
                     // The opponent will try to maximize his value
                     // so we'll try to account for that
                     // murphy's law
-                    int max1 = Math.max(strg[i][j - 2], strg[i + 1][j - 1]);
-                    int max2 = Math.max(strg[i + 2][j], strg[i + 1][j - 1]);
+                    int min1 = Math.min(strg[i][j - 2], strg[i + 1][j - 1]);
+                    int min2 = Math.min(strg[i + 2][j], strg[i + 1][j - 1]);
 
-                    if (max1 > max2) {
-                        strg[i][j] = max1 + coins[j];
-                    } else if (max1 == max2) {
-                        strg[i][j] = max1 + Math.min(coins[i], coins[j]);
-                    } else {
-                        strg[i][j] = max2 + coins[i];
+                    if (min1 + coins[j] < min2 + coins[i]) {
+                        strg[i][j] = min2 + coins[i];
+                    } else  {
+                        strg[i][j] = min1 + coins[j];
                     }
                 }
             }
@@ -37,15 +35,7 @@ public class CoinGame {
             }
         }
 
-        System.out.print("    ");
-        for (int i = 0; i < coins.length; i++) {
-            System.out.printf("%3d", coins[i]);
-        }
-        System.out.println();
-        System.out.println();
-
         for (int i = 0; i < strg.length; i++) {
-            System.out.printf("%3d-", coins[i]);
             for (int j = 0; j < strg.length; j++) {
                 System.out.printf("%3d", strg[i][j]);
             }
