@@ -16,7 +16,8 @@ public class genericTree {
         }
     }
 
-    // Construct Tree =================================================================
+    // Construct Tree
+    // =================================================================
     // #include<list> push_front(x), push_back(x), pop_front(), pop_back(), front(),
     // back()
     public static Node constructor(int[] arr) {
@@ -151,7 +152,8 @@ public class genericTree {
         return min;
     }
 
-    // Lowest Common Ancestor============================================================= 
+    // Lowest Common
+    // Ancestor=============================================================
     static int lowestCommonAncestor(Node root, int child1, int child2) {
         if (root == null) {
             return -1;
@@ -186,6 +188,47 @@ public class genericTree {
         return 0;
     }
 
+    static ArrayList<Node> getElementPath(Node root, int child) {
+        if (root.data == child) {
+            ArrayList<Node> items = new ArrayList<Node>();
+            items.add(root);
+            return items;
+        }
+
+        for (int i = 0; i < root.children.size(); i++) {
+            ArrayList<Node> retPath = getElementPath(root.children.get(i), child);
+            if (retPath.size() > 0) {
+                retPath.add(root);
+                return retPath;
+            }
+        }
+
+        return new ArrayList<Node>();
+    }
+
+    // LCA with stack=======================================
+    static int lowestCommonAncestorWithPath(Node root, int child1, int child2) {
+        if (!(findElement(root, child1) && findElement(root, child2))) {
+            return -1;
+        }
+
+        ArrayList<Node> path1 = getElementPath(root, child1);
+        ArrayList<Node> path2 = getElementPath(root, child2);
+        Collections.reverse(path1);
+        Collections.reverse(path2);
+
+        int length = Math.min(path1.size(), path2.size());
+        for (int i = 0; i < length; i++) {
+            if (path1.get(i).data != path2.get(i).data) {
+                return path1.get(i - 1).data;
+            }
+        }
+        if (path1.size() == length) {
+            return path1.get(length - 1).data;
+        }
+        return path2.get(length - 1).data;
+    }
+
     // LevelOrder=================================================================
     static void displayLevelOrder(Node root) {
         LinkedList<Node> stack = new LinkedList<>();
@@ -205,7 +248,7 @@ public class genericTree {
         System.out.println();
     }
 
-    // LevelWise====================================================================== 
+    // LevelWise======================================================================
     static void displayLevelOrderWithNewLine(Node root) {
         LinkedList<Node> q = new LinkedList<>();
         q.addLast(root);
@@ -231,7 +274,6 @@ public class genericTree {
         }
         System.out.println();
     }
-
 
     // ZIGZAG===================================================================
     static void displayLevelOrderWithNewLineWithZigZag(Node root) {
@@ -283,6 +325,8 @@ public class genericTree {
         displayLevelOrderWithNewLine(root);
         System.out.println();
         displayLevelOrderWithNewLineWithZigZag(root);
+        System.out.println();
+        System.out.println((lowestCommonAncestorWithPath(root, 10, 20)));
         // System.out.println();
         // System.out.println(findElement(root, 60));
         // System.out.println();
