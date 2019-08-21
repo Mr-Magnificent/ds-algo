@@ -9,7 +9,7 @@ public:
     Node *right;
     Node *parent;
 
-    Node(int data) : data(data), left(NULL), right(NULL)
+    Node(int data) : data(data), left(NULL), right(NULL), parent(NULL)
     {
     }
 };
@@ -56,7 +56,14 @@ void display(Node *root)
     {
         return;
     }
-    std::cout << root->data << " ";
+    if (root->parent)
+    {
+        std::cout << root->data << "@" << root->parent->data << " ";
+    }
+    else
+    {
+        std::cout << root->data << " ";
+    }
     display(root->left);
     display(root->right);
 }

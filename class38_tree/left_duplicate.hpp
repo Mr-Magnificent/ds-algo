@@ -4,44 +4,43 @@
 class Node
 {
 public:
-    int data;
+    char data;
     Node *left;
     Node *right;
-    Node *parent;
 
-    Node(int data) : data(data), left(NULL), right(NULL)
+    Node(char data) : data(data), left(nullptr), right(nullptr)
     {
     }
 };
 
-Node *construct_tree(std::vector<int> arr)
+Node *construct(std::vector<char> arr)
 {
-    Node *root = NULL;
+    Node *root = nullptr;
     std::stack<Node *> stk;
 
-    for (int ele : arr)
+    for (int i = 0; i < arr.size(); i++)
     {
-        if (ele == -1)
+        if ((int)arr[i] == -1)
         {
             stk.pop();
         }
         else
         {
-            Node *node = new Node(ele);
-            if (stk.size() == 0)
+            Node *node = new Node(arr[i]);
+            if (stk.empty())
             {
                 root = node;
             }
             else
             {
-                Node *item = stk.top();
-                if (item->left == NULL)
+                Node *temp = stk.top();
+                if (temp->left == nullptr)
                 {
-                    item->left = node;
+                    temp->left = node;
                 }
                 else
                 {
-                    item->right = node;
+                    temp->right = node;
                 }
             }
             stk.push(node);
@@ -52,11 +51,13 @@ Node *construct_tree(std::vector<int> arr)
 
 void display(Node *root)
 {
-    if (root == NULL)
-    {
+    using namespace std;
+    if (root == nullptr) {
         return;
     }
-    std::cout << root->data << " ";
+
+    cout  << root->data << " ";
+
     display(root->left);
     display(root->right);
 }
