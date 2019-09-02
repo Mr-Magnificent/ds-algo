@@ -648,8 +648,9 @@ Node *getMidNode(Node *&head, Node *&tail)
 void mergesort(Node *&head, Node *&tail)
 {
     if (head == tail) {
-        Node *nn = new Node(head->data, nullptr);
-        head = tail = nn;
+        // Node *nn = new Node(head->data, nullptr);
+        // head = tail = nn;
+        head->next = nullptr;
         return;
     }
     Node *mid = getMidNode(head, tail);
@@ -765,7 +766,7 @@ int main(int argc, char **argv)
     Node *sh = head;
     Node *st = tail;
     mergesort(sh, st);
-    AddLast(sh, st, 300);
     display(sh, st);
+    AddLast(sh, st, 300);
     display(head, tail);
 }
