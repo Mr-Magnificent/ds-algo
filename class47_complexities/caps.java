@@ -2,20 +2,33 @@ import java.util.*;
 
 public class caps {
 
-    static int cap(ArrayList<ArrayList<Integer>> arr, boolean[] capTaken, int person) {
+    static int count = 0;
+
+    static int cap(ArrayList<ArrayList<Integer>> arr, int person, int taken, int[] strg) {
         if (person == 4) {
             return 1;
         }
-        int val = 0;
-        for (int i = 0; i < arr.get(person).size(); i++) {
-            if (capTaken[arr.get(person).get(i)] == true) {
-                continue;
-            }
-            capTaken[arr.get(person).get(i)] = true;
-            val += cap(arr, capTaken, person + 1);
-            capTaken[arr.get(person).get(i)] = false;
+
+        if (strg[taken] != 0) {
+            return strg[taken];
         }
 
+        count++;
+
+        int val = 0;
+        for (int i = 0; i < arr.get(person).size(); i++) {
+            int mask = (1 << arr.get(person).get(i));
+            // System.out.println(mask +  " " + taken);
+            if ((taken & mask) != 0) {
+                continue;
+            }
+            taken = (taken | mask);
+            val += cap(arr, person + 1, taken, strg);
+            mask = ~mask;
+            taken = taken & mask;
+        }
+
+        strg[taken] = val;
         return val;
     }
 
@@ -26,7 +39,8 @@ public class caps {
         cps.add(new ArrayList<Integer>(Arrays.asList(1, 2, 3)));
         cps.add(new ArrayList<Integer>(Arrays.asList(0, 4)));
 
-        boolean[] capTaken = new boolean[5];
-        System.out.println(cap(cps, capTaken, 0));
+        int[] strg = new int[32];
+        System.out.println(cap(cps, 0, 0, strg));
+        System.out.println(count);
     }
 }
